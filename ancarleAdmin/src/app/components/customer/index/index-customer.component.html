@@ -1,0 +1,95 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Clientes</h1>
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <p class="text-muted">Este módulo lista todos los clientes de la tienda.</p>
+    <p class="font-size-sm font-weight-medium pl-md-4">
+      <a class="text-nowrap" [routerLink]="['/panel/clientes/registro']">Registrar nuevo<i
+          class="cxi-angle-right font-size-base align-middle ml-1"></i></a>
+    </p>
+  </div>
+</div>
+
+<div class="card box-shadow-sm">
+  <div class="card-header">
+    <h5 style="margin-bottom: 0px">Filtro de clientes</h5>
+  </div>
+  <div class="card-header">
+    <form class="form-inline pt-2">
+      <label class="sr-only" for="inline-form-input-name">Buscar</label>
+      <input class="form-control mb-3 mr-sm-4 col-12" name="search" [(ngModel)]="search" type="text"
+        id="inline-form-input-name" placeholder="Buscar" />
+    </form>
+  </div>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead class="thead-dark">
+          <tr>
+            <th>#</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Correo</th>
+            <th>Opciones</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="load">
+          <tr>
+            <td class="text-center" colspan="5">
+              <!-- Success spinner -->
+              <div class="spinner-border text-success" role="status">
+              <span class="visually-hidden"></span>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="!load">
+          <tr *ngFor="let customer of customers | filter: search; let i = index">
+            <!--slice: (page-1)*pageSize : (page-1)*pageSize + pageSize-->
+            <td>{{i+1}}</td>
+            <td>{{ customer.name }}</td>
+            <td>{{ customer.lastName }}</td>
+            <td>{{ customer.email }}</td>
+            <td>
+              <div class="btn-group dropdown">
+                <button type="button" class="btn btn-outline-secondary btn-sm dropdown-toggle" data-toggle="dropdown"
+                  aria-haspopup="true" aria-expanded="false">
+                  Opciones
+                </button>
+                <div class="dropdown-menu">
+                  <a class="dropdown-item" (click)="updateCustomer(customer._id)">actualizar</a>
+                  <a class="dropdown-item" style="cursor: pointer;" data-toggle="modal" 
+                    [attr.data-target]="'#delete-'+customer._id">Eliminar</a>
+                </div>
+              </div>
+  
+              <div class="modal fade" id="delete-{{customer._id}}" tabindex="-1" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Eliminar a {{customer.name}} {{customer.lastName}}</h4>
+                      <button class="close" type="button" data-dismiss="modal" aria-label="Close">X</button>
+                    </div>
+                    <div class="modal-body">
+                      <p class="fs-sm">Deseas eliminar este cliente?</p>
+                    </div>
+                    <div class="modal-footer">
+                      <button class="btn btn-secondary btn-sm" type="button" data-dismiss="modal">Cancelar</button>
+                      <button class="btn btn-primary btn-sm" type="button" (click)="deleteCustomer(customer._id)">Continuar</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="card-footer">
+    <ngb-pagination [(page)]="page" [pageSize]="pageSize" [collectionSize]="customers.length"></ngb-pagination>
+  </div>
+</div>

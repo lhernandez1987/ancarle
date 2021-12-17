@@ -1,0 +1,16 @@
+.buttonCreate {
+    background-color: #00fff6;
+    border-color: #00b4ae!important;
+    color: #2a2d2d!important;
+}
+
+.buttonCreate:hover {
+    background-color: #b400aa;
+    border-color: #8d0086!important;
+    color: #fff!important;
+}
+
+.requiredField {
+    color: #c00;
+}
+

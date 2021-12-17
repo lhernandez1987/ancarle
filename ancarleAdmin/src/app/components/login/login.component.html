@@ -1,0 +1,38 @@
+<div class="row" style="width: 100%;
+    height: 100%; margin-top: 80px;">
+    <div class="col-lg-7 mx-auto" style="display: flex;
+    align-items: center;">
+        <div class="px-md-5 px-4">
+            <img src="assets/img/components/logo/ancarle-logo-white.png" alt="Ancarle" width="250">
+            <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+                <div class="form-group">
+                    <label for="signin-email" style="color:#fff">Email</label>
+                    <input type="email" class="form-control" name="email" [(ngModel)]="user.email"
+                        placeholder="Your email address" required>
+
+                    <span *ngIf="loginForm.submitted && loginForm.controls['email'].errors" class="text-danger">El
+                        correo es obligatorio</span>
+                </div>
+                <div class="form-group">
+                    <label for="signin-password" class="form-label" style="color:#fff">Password</label>
+                    <div class="cs-password-toggle input-group-overlay">
+                        <input type="password" class="form-control appended-form-control" name="password"
+                            [(ngModel)]="user.password" placeholder="Your password" required>
+
+                        <span *ngIf="loginForm.submitted && loginForm.controls['password'].errors"
+                            class="text-danger">La contraseña es requerida</span>
+
+                        <div class="input-group-append-overlay">
+                            <label class="btn cs-password-toggle-btn input-group-text">
+                                <input type="checkbox" class="custom-control-input">
+                                <i class="cxi-eye cs-password-toggle-indicator"></i>
+                                <span class="sr-only">Show password</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-block" style="background-color: #00fff6; color: #2a2d2d;">Sign in</button>
+            </form>
+        </div>
+    </div>
+</div>

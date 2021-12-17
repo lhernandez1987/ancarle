@@ -1,0 +1,163 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+  <h1 class="mt-2 mt-md-4 mb-3 pt-5">Clientes</h1>
+  <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+    <p *ngIf="customerId && !customerId" class="text-muted">Este módulo lista todos los clientes de la tienda.</p>
+    <p *ngIf="customerId" class="text-muted">Este módulo edita un cliente de la tienda.</p>
+    <p *ngIf="!customerId" class="text-muted">Este módulo registra un cliente en la tienda.</p>
+  </div>
+</div>
+
+<form #regitrationForm="ngForm" (ngSubmit)="regitration()">
+  <div class="card box-shadow-sm">
+    <div class="card-header">
+      <h5 *ngIf="customerId" style="margin-bottom: 0px">Editar cliente</h5>
+      <h5 *ngIf="!customerId" style="margin-bottom: 0px">Registro de cliente</h5>
+    </div>
+
+    <div class="card-body" *ngIf="customer != undefined">
+      <div class="row">
+        <div class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label">
+            <i class="requiredField align-middle mt-n1 mr-1">*</i>
+            Nombre</label>
+          <input class="form-control" type="text" placeholder="First name" required name="name"
+            [(ngModel)]="customer.name" />
+
+          <span *ngIf="
+              regitrationForm.submitted &&
+              regitrationForm.controls['name'].errors
+            " class="text-danger">El nombre es obligatorio</span>
+        </div>
+        <div class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label">Apellido</label>
+          <input class="form-control" type="text" placeholder="Last name" required name="lastName"
+            [(ngModel)]="customer.lastName" />
+        </div>
+        <div class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label">
+            <i class="requiredField align-middle mt-n1 mr-1">*</i>Correo
+            electrónico</label>
+          <input class="form-control" type="text" placeholder="email@example.com" required name="email"
+            [(ngModel)]="customer.email" />
+
+          <span *ngIf="
+              regitrationForm.submitted &&
+              regitrationForm.controls['email'].errors
+            " class="text-danger">El correo es obligatorio</span>
+        </div>
+        <div class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label">Telefono</label>
+          <input class="form-control" type="text" placeholder="000 000-000" required name="phone"
+            [(ngModel)]="customer.phone" (keypress)="restrictNumeric($event)" />
+        </div>
+        <div class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label">Fecha nacimiento</label>
+          <input class="form-control" type="date" placeholder="Date" required name="birthDate"
+            [(ngModel)]="customer.birthDate" />
+        </div>
+        <div class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label"><i
+              class="requiredField align-middle mt-n1 mr-1">*</i>Identificación</label>
+          <input class="form-control" type="text" placeholder="Identification" required name="identification"
+            [(ngModel)]="customer.identification" />
+
+          <span *ngIf="
+              regitrationForm.submitted &&
+              regitrationForm.controls['identification'].errors
+            " class="text-danger">La identificacion es obligatorio</span>
+        </div>
+
+        <div class="col-md-4">
+          <label for="validationCustom01" class="form-label">Genero</label>
+          <select class="form-control custom-select" id="" name="gender" [(ngModel)]="customer.gender">
+            <option value="" disabled selected>select</option>
+            <option value="Masculino">Masculino</option>
+            <option value="Femenino">Femenino</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label for="validationCustom01" class="form-label">Pais</label>
+          <select class="form-control custom-select" [(ngModel)]="customer.country" name="country">
+            <option value="" disabled selected>select</option>
+            <option *ngFor="let country of Countries">{{country.name}}</option>
+          </select>
+        </div>
+
+        <div *ngIf="!customerId" class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label"><i
+              class="requiredField align-middle mt-n1 mr-1">*</i>Contraseña</label>
+          <input class="form-control" type="password" placeholder="password" required name="password"
+            [(ngModel)]="customer.password" />
+
+          <span *ngIf="
+              regitrationForm.submitted &&
+              regitrationForm.controls['password'].errors
+            " class="text-danger">La contraseña es obligatorio</span>
+        </div>
+
+        <div *ngIf="!customerId" class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label"><i
+              class="requiredField align-middle mt-n1 mr-1">*</i>Confirma
+            Contraseña</label>
+          <input class="form-control" type="password" placeholder="Confirm Password" required name="confimPassword"
+            [(ngModel)]="customer.confimPassword" />
+
+          <span *ngIf="
+              regitrationForm.submitted &&
+              regitrationForm.controls['confimPassword'].errors
+            " class="text-danger">La confirmación de la contraseña es obligatoria</span>
+
+            <span *ngIf="flag" class="text-danger">La contraseña no coincide</span>
+        </div>
+
+        <div *ngIf="customerId" class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label">Contraseña</label>
+          <input class="form-control" type="password" placeholder="password" required name="password"
+            [(ngModel)]="customer.password" />
+        </div>
+
+        <div *ngIf="customerId" class="col-md-4 form-group">
+          <label for="validationCustom01" class="form-label">Confirma Contraseña</label>
+          <input class="form-control" type="password" placeholder="Confirm Password" required name="confimPassword"
+            [(ngModel)]="customer.confimPassword" />
+
+            <span *ngIf="flag" class="text-danger">La contraseña no coinciden</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="car-body" *ngIf="customer == undefined">
+      <h3 class="text-center text-danger">No se encontro datos</h3>
+      <div class="row">
+        <div class="col-3 mx-auto">
+          <img src="assets/img/advertencia.png" alt="" style="width: 100%;">
+        </div>
+      </div>
+    </div>
+    
+    <div *ngIf="customerId" class="card-footer">
+      <button *ngIf="!load" class="btn buttonCreate mr-3" type="submit">Actualizar</button>
+      <button class="btn btn-warning" [routerLink]="['/panel/clientes']">
+        Regresar
+      </button>
+      <button *ngIf="load" type="button" class="btn btn-secondary" disabled>
+        <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+        Actualizando...
+      </button>
+    </div>
+    <div *ngIf="!customerId && !load" class="card-footer">
+      <button *ngIf="!load" class="btn buttonCreate mr-3" type="submit">Guardar</button>
+      <button *ngIf="load" type="button" class="btn btn-secondary" disabled>
+        <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
+        Creando...
+      </button>
+      <button class="btn btn-warning" [routerLink]="['/panel/clientes']">
+        Regresar
+      </button>
+    </div>
+  </div>
+</form>
