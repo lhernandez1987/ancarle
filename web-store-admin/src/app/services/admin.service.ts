@@ -8,15 +8,15 @@ import { JwtHelperService } from "@auth0/angular-jwt";
   providedIn: "root",
 })
 export class AdminService {
-  public url;
+  public urlBackend;
 
   constructor(private _http: HttpClient) {
-    this.url = GLOBAL.url;
+    this.urlBackend = GLOBAL.urlBackend;
   }
 
   loginAdmin(data): Observable<any> {
     let headers = new HttpHeaders().set("Content-Type", "application/json");
-    return this._http.post(this.url + "login_admin", data, {
+    return this._http.post(this.urlBackend + "login_admin", data, {
       headers: headers,
     });
   }
@@ -27,7 +27,7 @@ export class AdminService {
 
   registration(token, data): Observable<any> {
     let headers = new HttpHeaders({"Content-Type":"application/json","Authorization":token});
-    return this._http.post(this.url + "registration_admin", data, { headers: headers });
+    return this._http.post(this.urlBackend + "registration_admin", data, { headers: headers });
   }
 
   public isAuthenticated(allowRoles: string[]): boolean {

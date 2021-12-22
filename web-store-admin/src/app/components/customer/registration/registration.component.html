@@ -24,7 +24,7 @@
             <i class="requiredField align-middle mt-n1 mr-1">*</i>
             Nombre</label>
           <input class="form-control" type="text" placeholder="First name" required name="name"
-            [(ngModel)]="customer.name" />
+            [(ngModel)]="customer.name" (keypress)="restrictSpecialCharacters($event)" />
 
           <span *ngIf="
               regitrationForm.submitted &&
@@ -34,7 +34,7 @@
         <div class="col-md-4 form-group">
           <label for="validationCustom01" class="form-label">Apellido</label>
           <input class="form-control" type="text" placeholder="Last name" required name="lastName"
-            [(ngModel)]="customer.lastName" />
+            [(ngModel)]="customer.lastName" (keypress)="restrictSpecialCharacters($event)" />
         </div>
         <div class="col-md-4 form-group">
           <label for="validationCustom01" class="form-label">
@@ -62,7 +62,7 @@
           <label for="validationCustom01" class="form-label"><i
               class="requiredField align-middle mt-n1 mr-1">*</i>Identificación</label>
           <input class="form-control" type="text" placeholder="Identification" required name="identification"
-            [(ngModel)]="customer.identification" />
+            [(ngModel)]="customer.identification" (keypress)="validNumbersLetters($event)" />
 
           <span *ngIf="
               regitrationForm.submitted &&
