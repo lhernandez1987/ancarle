@@ -1,12 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { AdminService } from "src/app/services/admin.service";
 import { MessageService } from "src/app/services/message.service";
-import { CountriesService, Country} from "src/app/services/countries.service";
+import { CountriesService, Country } from "src/app/services/countries.service";
 import { Router, ActivatedRoute } from "@angular/router";
 import { CustomerService } from "src/app/services/customer.service";
-
-
-declare var iziToast;
 
 @Component({
   selector: "app-registration",
@@ -14,10 +11,9 @@ declare var iziToast;
   styleUrls: ["./registration.component.css"],
 })
 export class RegistrationComponent implements OnInit {
-
   customer: any = {
     gender: "",
-    country: ""
+    country: "",
   };
   flag: boolean = false;
   dataFlag: boolean;
@@ -27,84 +23,67 @@ export class RegistrationComponent implements OnInit {
   load = false;
 
   constructor(
-    private _messageService: MessageService,
-    private _adminService: AdminService,
-    private _countriesService: CountriesService,
-    private _router: Router,
-    private _activatedRoute: ActivatedRoute,
-    private _customerService: CustomerService
+    private messageService: MessageService,
+    private adminService: AdminService,
+    private countriesService: CountriesService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private customerService: CustomerService
   ) {
-    this.token = this._adminService.getToken();
+    this.token = this.adminService.getToken();
   }
 
   ngOnInit() {
+    this.activatedRoute.params.subscribe((params) => {
 
-    this._activatedRoute.params.subscribe(
-      params => {
+      this.customerId = params["id"];
 
-        this.customerId = params['id'];
-
-        if (this.customerId) {
-
-          this._customerService.getCustomer(this.customerId, this.token).subscribe(
-            response => {
-  
-              this.customer = response.data;
-  
-              this.customer.password = '';
-  
-            },
-            error => {
-              this.customer = undefined;
-            }
-            
-          );
-
-        } 
-
+      if (this.customerId) {
+        this.customerService.getCustomer(this.customerId, this.token).subscribe(
+          (response) => {
+            this.customer = response.data;
+            this.customer.password = "";
+          },
+          (error) => {
+            this.customer = undefined;
+          }
+        );
       }
-    )
+    });
 
-    this.Countries = this._countriesService.getCountries();
+    this.Countries = this.countriesService.getCountries();
   }
 
   regitration() {
 
-    console.log(this.customer.country);
-    
     if (this.customer.password != "" && this.customer.password != this.customer.confimPassword) {
       this.flag = true;
     } else {
-      console.log(this.customer);
 
       if (this.customerId) {
 
         this.load = true;
-     
-        this._customerService.updateCustomer(this.token, this.customer, this.customerId).subscribe(
-          response => {
 
-            console.log(response);
+        this.customerService
+          .updateCustomer(this.token, this.customer, this.customerId)
+          .subscribe(
+            (response) => {
 
-            this._messageService.getMessageSuccess(response.status.name);
+              this.messageService.getMessageSuccess(response.status.name);
+              this.load = false;
+              this.router.navigate(["/panel/clientes"]);
 
-            this.load = false;
-
-            this._router.navigate(['/panel/clientes']);
-          },
-          error => {
-
-          }
-        )
+            },
+            (error) => {}
+          );
       } else {
-     
+
         this.load = true;
 
-        this._adminService.registration(this.token, this.customer).subscribe(
+        this.adminService.registration(this.token, this.customer).subscribe(
           (response) => {
-  
-            this._messageService.getMessageSuccess(response.status.name);
-  
+            this.messageService.getMessageSuccess(response.status.name);
+
             this.customer = {
               identification: "",
               name: "",
@@ -115,18 +94,15 @@ export class RegistrationComponent implements OnInit {
               profile: "",
               phone: "",
               gender: "",
-              birthDate: ""
-            }
-          
-            setTimeout(() => {
-              this.load = false;
-            }, 3000)
-  
-            this._router.navigate(['/panel/clientes']);
-  
+              birthDate: "",
+            };
+
+            this.load = false;
+            this.router.navigate(["/panel/clientes"]);
+
           },
           (e) => {
-            this._messageService.getMessageError(e.error.status.name);
+            this.messageService.getMessageError(e.error.status.name);
           }
         );
       }
@@ -134,21 +110,14 @@ export class RegistrationComponent implements OnInit {
   }
 
   restrictNumeric(e) {
-    let input;
-    if (e.metaKey || e.ctrlKey) {
-      return true;
-    }
-    if (e.which === 32) {
-     return false;
-    }
-    if (e.which === 0) {
-     return true;
-    }
-    if (e.which < 33) {
-      return true;
-    }
-    input = String.fromCharCode(e.which);
-    return !!/[\d\s]/.test(input);
-   }
+    return new RegExp('[0-9]').test(String.fromCharCode(e.which));
+  }
 
+  restrictSpecialCharacters(e) {
+    return !!/^[^{}*+£$%\\//()@?¡¿!^-_0-9]+$/g.test(String.fromCharCode(e.which));
+  }
+
+  validNumbersLetters(e) {
+    return !!/^[^{}*+£$%\\//()@?¡¿!^-_]+$/g.test(String.fromCharCode(e.which));
+  }
 }
