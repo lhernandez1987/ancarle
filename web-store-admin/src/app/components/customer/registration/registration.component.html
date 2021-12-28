@@ -23,13 +23,13 @@
           <label for="validationCustom01" class="form-label">
             <i class="requiredField align-middle mt-n1 mr-1">*</i>
             Nombre</label>
-          <input class="form-control" type="text" placeholder="First name" required name="name"
+          <input id="name" class="form-control" type="text" placeholder="First name" required name="name"
             [(ngModel)]="customer.name" (keypress)="restrictSpecialCharacters($event)" />
 
           <span *ngIf="
               regitrationForm.submitted &&
               regitrationForm.controls['name'].errors
-            " class="text-danger">El nombre es obligatorio</span>
+            " class="text-danger">El campo es obligatorio</span>
         </div>
         <div class="col-md-4 form-group">
           <label for="validationCustom01" class="form-label">Apellido</label>
@@ -46,7 +46,7 @@
           <span *ngIf="
               regitrationForm.submitted &&
               regitrationForm.controls['email'].errors
-            " class="text-danger">El correo es obligatorio</span>
+            " class="text-danger">El campo es obligatorio</span>
         </div>
         <div class="col-md-4 form-group">
           <label for="validationCustom01" class="form-label">Telefono</label>
@@ -67,7 +67,7 @@
           <span *ngIf="
               regitrationForm.submitted &&
               regitrationForm.controls['identification'].errors
-            " class="text-danger">La identificacion es obligatorio</span>
+            " class="text-danger">El campo es obligatorio</span>
         </div>
 
         <div class="col-md-4">
@@ -141,15 +141,16 @@
     
     <div *ngIf="customerId" class="card-footer">
       <button *ngIf="!load" class="btn buttonCreate mr-3" type="submit">Actualizar</button>
-      <button class="btn btn-warning" [routerLink]="['/panel/clientes']">
-        Regresar
-      </button>
       <button *ngIf="load" type="button" class="btn btn-secondary" disabled>
         <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
         Actualizando...
       </button>
+      <button class="btn btn-warning" [routerLink]="['/panel/clientes']">
+        Regresar
+      </button>
     </div>
-    <div *ngIf="!customerId && !load" class="card-footer">
+
+    <div *ngIf="!customerId" class="card-footer">
       <button *ngIf="!load" class="btn buttonCreate mr-3" type="submit">Guardar</button>
       <button *ngIf="load" type="button" class="btn btn-secondary" disabled>
         <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>

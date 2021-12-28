@@ -13,5 +13,6 @@ export var GLOBAL = {
     invalid_data: 'Los datos en el formulario no son validos',
     invalid_confim_password: 'Contraseña no coincide',
     name: 'Nombre',
+    invalid_token_id: '498',
 
 }

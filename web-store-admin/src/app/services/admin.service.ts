@@ -3,6 +3,7 @@ import { Observable } from "rxjs";
 import { GLOBAL } from "./GLOBAL";
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { Router } from "@angular/router";
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +11,8 @@ import { JwtHelperService } from "@auth0/angular-jwt";
 export class AdminService {
   public urlBackend;
 
-  constructor(private _http: HttpClient) {
+  constructor(private _http: HttpClient,
+    private _router: Router) {
     this.urlBackend = GLOBAL.urlBackend;
   }
 
@@ -37,7 +39,10 @@ export class AdminService {
       if (this.getToken()) {
         var decodedToken = helper.decodeToken(this.getToken());
 
+        console.log(decodedToken);
+
         if (!decodedToken) {
+          console.log(decodedToken);
           localStorage.removeItem(GLOBAL.token);
           return false;
         }
@@ -50,5 +55,15 @@ export class AdminService {
     }
 
     return allowRoles.includes(decodedToken["rol"]);
+  }
+
+  validateToken(statusId) { 
+
+    if (statusId == GLOBAL.invalid_token_id) {
+      localStorage.removeItem(GLOBAL.token);
+      localStorage.removeItem(GLOBAL.id);
+      this._router.navigate(["/login"]);
+    }
+
   }
 }
