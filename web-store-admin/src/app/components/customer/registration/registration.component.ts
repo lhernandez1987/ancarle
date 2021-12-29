@@ -72,7 +72,6 @@ export class RegistrationComponent implements OnInit {
             (response) => {
 
               this.messageService.getMessageSuccess(response.status.name);
-              //this.load = false;
               this.router.navigate(["/panel/clientes"]);
 
             },

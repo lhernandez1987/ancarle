@@ -31,24 +31,12 @@ export class IndexCustomerComponent implements OnInit {
    this.getCustomer();
   }
 
-  filterGetCustomer(search) {
-
-    console.log('LLEGUE: ' + search);
-
-
-    
-
-  }
-
   getCustomer() {
 
     this._customerService.getCustomers(this.token).subscribe(
       (response) => {
-        
         this.customers = response.data;
-
         this.load = false;
-
       },
       (e) => {
         this._messageService.getMessageError(e.error.status.name);
