@@ -66,8 +66,8 @@ export class LoginComponent implements OnInit {
           }
 
         },
-        error => {
-          console.log(error);
+        e => {
+          this._util.getMessageError(e.error.status.name);
         }
       );
     }

@@ -31,6 +31,15 @@ export class IndexCustomerComponent implements OnInit {
    this.getCustomer();
   }
 
+  filterGetCustomer(search) {
+
+    console.log('LLEGUE: ' + search);
+
+
+    
+
+  }
+
   getCustomer() {
 
     this._customerService.getCustomers(this.token).subscribe(
