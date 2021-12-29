@@ -52,12 +52,14 @@ export class RegistrationComponent implements OnInit {
     });
 
     this.Countries = this.countriesService.getCountries();
+
   }
 
   regitration() {
 
     if (this.customer.password != "" && this.customer.password != this.customer.confimPassword) {
       this.flag = true;
+      this.load = false;
     } else {
 
       if (this.customerId) {
@@ -70,7 +72,6 @@ export class RegistrationComponent implements OnInit {
             (response) => {
 
               this.messageService.getMessageSuccess(response.status.name);
-              this.load = false;
               this.router.navigate(["/panel/clientes"]);
 
             },
@@ -78,8 +79,8 @@ export class RegistrationComponent implements OnInit {
           );
       } else {
 
-        this.load = true;
-
+        this.load = false;
+        
         this.adminService.registration(this.token, this.customer).subscribe(
           (response) => {
             this.messageService.getMessageSuccess(response.status.name);
@@ -97,12 +98,15 @@ export class RegistrationComponent implements OnInit {
               birthDate: "",
             };
 
-            this.load = false;
+            this.load = true;
             this.router.navigate(["/panel/clientes"]);
 
           },
           (e) => {
+            
             this.messageService.getMessageError(e.error.status.name);
+            this.adminService.validateToken(e.error.status.id);
+
           }
         );
       }
@@ -120,4 +124,5 @@ export class RegistrationComponent implements OnInit {
   validNumbersLetters(e) {
     return !!/^[^{}*+£$%\\//()@?¡¿!^-_]+$/g.test(String.fromCharCode(e.which));
   }
+
 }

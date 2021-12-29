@@ -15,8 +15,8 @@ declare var $: any;
 export class IndexCustomerComponent implements OnInit {
   customers: Array<any> = [];
   search = "";
-  page = 1;
-  pageSize = 1;
+  page = 3;
+  pageSize = 3;
   token;
   load = true;
 
@@ -36,12 +36,12 @@ export class IndexCustomerComponent implements OnInit {
     this._customerService.getCustomers(this.token).subscribe(
       (response) => {
         this.customers = response.data;
-
         this.load = false;
-
       },
-      (error) => {
-        console.log(error);
+      (e) => {
+        this._messageService.getMessageError(e.error.status.name);
+            
+        this._adminService.validateToken(e.error.status.id);
       }
     );
 
