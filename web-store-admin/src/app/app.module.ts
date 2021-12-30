@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { NgbPaginationModule } from "@ng-bootstrap/ng-bootstrap";
+import { EditorModule } from "@tinymce/tinymce-angular";
 
 import { AppComponent } from './app.component';
 import { routing } from "./app.routing";
@@ -32,7 +33,8 @@ import { CreateProductComponent } from './components/products/create-product/cre
     HttpClientModule,
     routing,
     NgbPaginationModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    EditorModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -28,6 +28,7 @@ export class CreateProductComponent implements OnInit {
 
     if (registrationForm.valid) {
       console.log(this.product);
+      console.log(this.file);
     }
 
   }

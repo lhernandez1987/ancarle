@@ -83,14 +83,20 @@
                                 " class="text-danger">El campo es obligatorio
                             </span>
                         </div>
-
                         <div class="col-lg-12 form-group">
-
-                            <textarea class="form-control" required rows="15" name="content"
-                                [(ngModel)]="product.content"></textarea>
-
+                            <editor
+                                apiKey="ls17hr7thl0mysoxt3rliqhg87ijminqjw49t9b5ey04bbet"
+                                [init]="{
+                                icons: 'material',
+                                skin: 'borderless',
+                                plugins: 'wordcount',
+                                menubar: false,
+                                min_height: 150
+                                }"
+                                name="content"
+                                [(ngModel)]="product.content">
+                            </editor>
                         </div>
-
                     </div>
                 </div>
                 <div class="col-lg-4">
