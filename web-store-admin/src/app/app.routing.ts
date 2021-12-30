@@ -6,6 +6,7 @@ import { AdminGuard } from "./guards/admin.guard";
 import { GLOBAL } from "./services/GLOBAL";
 import { IndexCustomerComponent } from "./components/customer/index/index-customer.component";
 import { RegistrationComponent } from "./components/customer/registration/registration.component";
+import { CreateProductComponent } from "./components/products/create-product/create-product.component";
 
 const appRouter: Routes = [
   { path: "", redirectTo: GLOBAL.start, pathMatch: "full" },
@@ -25,7 +26,13 @@ const appRouter: Routes = [
       {path: GLOBAL.edit_customer_id,
         component: RegistrationComponent,
         canActivate: [AdminGuard]
-      }
+      },
+      {
+        path: GLOBAL.product_registration,
+        component: CreateProductComponent,
+        canActivate: [AdminGuard]
+      },
+
     ],
   },
   { path: GLOBAL.login, component: LoginComponent },

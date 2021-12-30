@@ -14,5 +14,6 @@ export var GLOBAL = {
     invalid_confim_password: 'Contraseña no coincide',
     name: 'Nombre',
     invalid_token_id: '498',
+    product_registration: 'productos/registro',
 
 }

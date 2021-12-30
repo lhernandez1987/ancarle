@@ -39,10 +39,7 @@ export class AdminService {
       if (this.getToken()) {
         var decodedToken = helper.decodeToken(this.getToken());
 
-        console.log(decodedToken);
-
         if (!decodedToken) {
-          console.log(decodedToken);
           localStorage.removeItem(GLOBAL.token);
           return false;
         }

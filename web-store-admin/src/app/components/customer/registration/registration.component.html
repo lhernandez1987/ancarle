@@ -4,9 +4,15 @@
 <div class="border-bottom pt-5 mt-2 mb-5">
   <h1 class="mt-2 mt-md-4 mb-3 pt-5">Clientes</h1>
   <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
-    <p *ngIf="customerId && !customerId" class="text-muted">Este módulo lista todos los clientes de la tienda.</p>
-    <p *ngIf="customerId" class="text-muted">Este módulo edita un cliente de la tienda.</p>
-    <p *ngIf="!customerId" class="text-muted">Este módulo registra un cliente en la tienda.</p>
+    <p *ngIf="customerId && !customerId" class="text-muted">
+      Este módulo lista todos los clientes de la tienda.
+    </p>
+    <p *ngIf="customerId" class="text-muted">
+      Este módulo edita un cliente de la tienda.
+    </p>
+    <p *ngIf="!customerId" class="text-muted">
+      Este módulo registra un cliente en la tienda.
+    </p>
   </div>
 </div>
 
@@ -14,7 +20,9 @@
   <div class="card box-shadow-sm">
     <div class="card-header">
       <h5 *ngIf="customerId" style="margin-bottom: 0px">Editar cliente</h5>
-      <h5 *ngIf="!customerId" style="margin-bottom: 0px">Registro de cliente</h5>
+      <h5 *ngIf="!customerId" style="margin-bottom: 0px">
+        Registro de cliente
+      </h5>
     </div>
 
     <div class="card-body" *ngIf="customer != undefined">
@@ -83,7 +91,9 @@
           <label for="validationCustom01" class="form-label">Pais</label>
           <select class="form-control custom-select" [(ngModel)]="customer.country" name="country">
             <option value="" disabled selected>select</option>
-            <option *ngFor="let country of Countries">{{country.name}}</option>
+            <option *ngFor="let country of Countries">
+              {{ country.name }}
+            </option>
           </select>
         </div>
 
@@ -111,7 +121,7 @@
               regitrationForm.controls['confimPassword'].errors
             " class="text-danger">La confirmación de la contraseña es obligatoria</span>
 
-            <span *ngIf="flag" class="text-danger">La contraseña no coincide</span>
+          <span *ngIf="flag" class="text-danger">La contraseña no coincide</span>
         </div>
 
         <div *ngIf="customerId" class="col-md-4 form-group">
@@ -125,7 +135,7 @@
           <input class="form-control" type="password" placeholder="Confirm Password" required name="confimPassword"
             [(ngModel)]="customer.confimPassword" />
 
-            <span *ngIf="flag" class="text-danger">La contraseña no coinciden</span>
+          <span *ngIf="flag" class="text-danger">La contraseña no coinciden</span>
         </div>
       </div>
     </div>
@@ -134,13 +144,15 @@
       <h3 class="text-center text-danger">No se encontro datos</h3>
       <div class="row">
         <div class="col-3 mx-auto">
-          <img src="assets/img/advertencia.png" alt="" style="width: 100%;">
+          <img src="assets/img/advertencia.png" alt="" style="width: 100%" />
         </div>
       </div>
     </div>
-    
+
     <div *ngIf="customerId" class="card-footer">
-      <button *ngIf="!load" class="btn buttonCreate mr-3" type="submit">Actualizar</button>
+      <button *ngIf="!load" class="btn buttonCreate mr-3" type="submit">
+        Actualizar
+      </button>
       <button *ngIf="load" type="button" class="btn btn-secondary" disabled>
         <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
         Actualizando...
@@ -151,7 +163,9 @@
     </div>
 
     <div *ngIf="!customerId" class="card-footer">
-      <button *ngIf="!load" class="btn buttonCreate mr-3" type="submit">Guardar</button>
+      <button *ngIf="!load" class="btn buttonCreate mr-3" type="submit">
+        Guardar
+      </button>
       <button *ngIf="load" type="button" class="btn btn-secondary" disabled>
         <span class="spinner-grow spinner-grow-sm me-2" role="status" aria-hidden="true"></span>
         Creando...

@@ -3,3 +3,7 @@
     background-color: #b400aa!important;
     border-color: #8d0086!important;
 }
+
+.requiredField {
+    color: #c00;
+}

@@ -1,0 +1,118 @@
+<app-sidebar></app-sidebar>
+
+<!-- Page title-->
+<div class="border-bottom pt-5 mt-2 mb-5">
+    <h1 class="mt-2 mt-md-4 mb-3 pt-5">Productos</h1>
+    <div class="d-flex flex-wrap flex-md-nowrap justify-content-between">
+        <p class="text-muted">Este módulo lista todos los productos de la tienda.</p>
+
+    </div>
+</div>
+
+<form #registrationForm="ngForm" (ngSubmit)="regitration(registrationForm)">
+    <div class="card box-shadow-sm">
+        <div class="card-header">
+            <h5 style="margin-bottom: 0px;">Registro de producto</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-lg-12 form-group">
+                            <i class="requiredField align-middle mt-n1 mr-1">*</i>
+                            <label for="">Titulo de producto</label>
+                            <input type="text" class="form-control" placeholder="Titulo de producto" name="name"
+                                required [(ngModel)]="product.name">
+                                
+                            <span *ngIf="
+                                registrationForm.submitted &&
+                                registrationForm.controls['name'].errors
+                                " class="text-danger">El campo es obligatorio</span>
+                        </div>
+                        <div class="col-lg-4 form-group">
+                            <i class="requiredField align-middle mt-n1 mr-1">*</i>
+                            <label for="">Stock</label>
+                            <input type="number" class="form-control" placeholder="Cantidad inicial" name="stock"
+                                required [(ngModel)]="product.stock">
+
+                            <span *ngIf="
+                                registrationForm.submitted &&
+                                registrationForm.controls['stock'].errors
+                                " class="text-danger">El campo es obligatorio
+                            </span>
+                        </div>
+                        <div class="col-lg-4 form-group">
+                            <i class="requiredField align-middle mt-n1 mr-1">*</i>
+                            <label for="">Precio</label>
+                            <input type="number" class="form-control" placeholder="Precio" name="price" required
+                                [(ngModel)]="product.price">
+
+                            <span *ngIf="
+                                registrationForm.submitted &&
+                                registrationForm.controls['price'].errors
+                                " class="text-danger">El campo es obligatorio
+                            </span>
+                        </div>
+                        <div class="col-lg-4 form-group">
+                            <i class="requiredField align-middle mt-n1 mr-1">*</i>
+                            <label for="">Categoría</label>
+                            <select class="form-control custom-select" id="select-input" name="category" required
+                                [(ngModel)]="product.category">
+                                <option value="" selected disabled>Seleccionar</option>
+                                <option value="Categoria 1">Categoria 1</option>
+                                <option value="Categoria 2">Categoria 2</option>
+                                <option value="Categoria 3">Categoria 3</option>
+                            </select>
+
+                            <span *ngIf="
+                                registrationForm.submitted &&
+                                registrationForm.controls['category'].errors
+                                " class="text-danger">El campo es obligatorio
+                            </span>
+                        </div>
+
+                        <div class="col-lg-12 form-group">
+                            <i class="requiredField align-middle mt-n1 mr-1">*</i>
+                            <label for="">Descripción corta</label>
+                            <textarea class="form-control" placeholder="Titulo de producto" required name="description"
+                                rows="5" [(ngModel)]="product.description"></textarea>
+                            
+                            <span *ngIf="
+                                registrationForm.submitted &&
+                                registrationForm.controls['description'].errors
+                                " class="text-danger">El campo es obligatorio
+                            </span>
+                        </div>
+
+                        <div class="col-lg-12 form-group">
+
+                            <textarea class="form-control" required rows="15" name="content"
+                                [(ngModel)]="product.content"></textarea>
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="row">
+                        <div class="col-lg-12 form-group">
+                            <label for="">Portada</label>
+                            <div class="custom-file">
+                                <input class="custom-file-input" type="file" id="file-input" (change)="fileChangeEvent($event)">
+                                <label class="custom-file-label" id="front-page" for="file-input"
+                                style="white-space:nowrap;overflow:hidden;">Seleccionar imagen</label>
+                            </div>
+                        </div>
+                        <div class="col-lg-12">
+                            <img [src]="imgSelect" class="img-thumbnail" alt="Rounded image">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+            <button class="btn btn-primary mr-3" type="submit">Crear producto</button>
+            <button class="btn btn-warning">Regresar</button>
+        </div>
+    </div>
+</form>

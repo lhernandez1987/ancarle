@@ -13,6 +13,7 @@ import { IndexCustomerComponent } from './components/customer/index/index-custom
 import { FilterPipe } from './pipes/filter.pipe';
 import { RegistrationComponent } from './components/customer/registration/registration.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { CreateProductComponent } from './components/products/create-product/create-product.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     IndexCustomerComponent,
     FilterPipe,
     RegistrationComponent,
+    CreateProductComponent,
   ],
   imports: [
     BrowserModule,
